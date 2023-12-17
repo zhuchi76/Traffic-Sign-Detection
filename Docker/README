@@ -1,0 +1,49 @@
+Certainly! Below is a template for a README file for your Dockerized application, "Traffic Sign Detection". You can adjust it to include more specific details about your project, how to build and run the Docker container, prerequisites, and any other relevant information.
+
+---
+
+# Traffic Sign Detection
+
+## Overview
+Traffic Sign Detection is a Dockerized application designed to detect and analyze traffic signs. This application utilizes NVIDIA CUDA for GPU acceleration and is built on a Python environment with libraries such as OpenCV, NumPy, Matplotlib, scikit-image, and imutils.
+
+## Prerequisites
+- Docker
+- NVIDIA GPU with CUDA support
+- NVIDIA Docker (for GPU support in Docker)
+
+## Installation and Setup
+Before running the application, ensure that Docker and NVIDIA Docker are installed on your system. The application is containerized for easy deployment and isolation.
+
+### Building the Docker Image
+Run the `build.sh` script to build the Docker image:
+```bash
+source build.sh
+```
+This script will create a Docker image named `traffic-sign-detection`.
+
+### Running the Docker Container
+To run the application in a Docker container, use the `docker_run.sh` script:
+```bash
+source docker_run.sh
+```
+This script will start the Docker container with the necessary configurations and mount the required directories.
+
+### Joining the Running Container
+If you need to attach to the running container, use the `docker_join.sh` script:
+```bash
+source docker_join.sh
+```
+
+## Usage
+Describe how to use the application, including any necessary commands, input data formats, and output expectations.
+
+## Contributing
+Instructions for how other developers can contribute to the project.
+
+## License
+Specify the license under which this project is released, if applicable.
+
+---
+
+Remember to replace the placeholders and generic descriptions with specific details relevant to the Traffic Sign Detection project. This README template provides a basic structure, but you should elaborate on each section based on the intricacies and requirements of your project.
