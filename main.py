@@ -32,10 +32,12 @@ def clean_images():
 def constrastLimit(image):
     img_hist_equalized = cv2.cvtColor(image, cv2.COLOR_BGR2YCrCb)
     channels = cv2.split(img_hist_equalized)
+    channels = list(channels)  # Explicitly convert to list if necessary
     channels[0] = cv2.equalizeHist(channels[0])
     img_hist_equalized = cv2.merge(channels)
     img_hist_equalized = cv2.cvtColor(img_hist_equalized, cv2.COLOR_YCrCb2BGR)
     return img_hist_equalized
+
 
 def LaplacianOfGaussian(image):
     LoG_image = cv2.GaussianBlur(image, (3,3), 0)           # paramter 
@@ -178,7 +180,7 @@ def localization(image, min_size_components, similitary_contour_with_circle, mod
         sign_type = getLabel(model, sign)
         sign_type = sign_type if sign_type <= 8 else 8
         text = SIGNS[sign_type]
-        cv2.imwrite(str(count)+'_'+text+'.png', sign)
+        # cv2.imwrite(str(count)+'_'+text+'.png', sign)
 
     if sign_type > 0 and sign_type != current_sign_type:        
         cv2.rectangle(original_image, coordinate[0],coordinate[1], (0, 255, 0), 1)
@@ -293,7 +295,15 @@ def main(args):
             # grab the ROI for the bounding box and convert it
             # to the HSV color space
             roi = frame[tl[1]:br[1], tl[0]:br[0]]
-            roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+            # roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+            
+            if roi.size != 0:
+                roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+            else:
+                # Handle the empty ROI case here
+                # For example, you might want to continue to the next iteration of the loop
+                continue
+
             #roi = cv2.cvtColor(roi, cv2.COLOR_BGR2LAB)
 
             # compute a HSV histogram for the ROI and store the
