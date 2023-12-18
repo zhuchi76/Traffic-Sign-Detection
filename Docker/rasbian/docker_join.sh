@@ -3,7 +3,7 @@
 # Typical usage: ./join.bash robotx
 #
 
-IMG=traffic-sign-detection
+IMG=zhuchi76/traffic-sign-detection:latest
 
 xhost +
 containerid=$(docker ps -aqf "ancestor=${IMG}") && echo $containerid
