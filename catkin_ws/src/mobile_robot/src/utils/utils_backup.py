@@ -228,7 +228,7 @@ def remove_other_color(img):
 
 def main(args):
 	#Clean previous image    
-    clean_images()
+    # clean_images()
     #Training phase
     model = training()
 

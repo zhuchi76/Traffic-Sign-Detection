@@ -24,10 +24,26 @@ RUN apt-get update && apt-get install -y \
 # Install other useful tools and dependencies
 RUN apt-get install -y git wget nano
 
+# # Install Python packages for OpenCV, NumPy, Matplotlib, scikit-image, and imutils
+# RUN apt-get install -y python3-pip
+# RUN pip3 install numpy matplotlib scikit-image imutils
+# RUN apt-get install -y python3-opencv
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    python3-dev
+
 # Install Python packages for OpenCV, NumPy, Matplotlib, scikit-image, and imutils
 RUN apt-get install -y python3-pip
-RUN pip3 install numpy matplotlib scikit-image imutils
+RUN pip3 install numpy
+RUN pip3 install matplotlib
+# RUN pip3 install scikit-image
+RUN pip3 install imutils
 RUN apt-get install -y python3-opencv
+
+
 
 # Set up the ROS environment
 RUN echo "source /opt/ros/noetic/setup.bash" >> /etc/bash.bashrc

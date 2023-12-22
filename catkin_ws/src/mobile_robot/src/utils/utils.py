@@ -2,13 +2,14 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from math import sqrt
-from skimage.feature import blob_dog, blob_log, blob_doh
+# from skimage.feature import blob_dog, blob_log, blob_doh
 import imutils
 import argparse
 import os
 import math
 
 from classification import training, getLabel
+from classification import SVM
 
 SIGNS = ["ERROR",
         "STOP",
@@ -141,6 +142,7 @@ def findSigns(image, contours, threshold, distance_theshold):
     signs = []
     coordinates = []
     for c in contours:
+        c = np.squeeze(c)
         # compute the center of the contour
         M = cv2.moments(c)
         if M["m00"] == 0:
@@ -281,6 +283,7 @@ if __name__ == '__main__':
 
     # Example image processing
     image = cv2.imread('example.png')
+    image = cv2.resize(image, (640,480))
     processed_image = localization_and_draw(image, 300, 0.65, model)
     cv2.imshow('Processed Image', processed_image)
     cv2.waitKey(0)
