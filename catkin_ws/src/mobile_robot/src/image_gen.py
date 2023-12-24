@@ -11,9 +11,9 @@ picam2.start()
 
 count = 1
 
+os.makedirs("images", exist_ok=True)
+
 while True:
     time.sleep(2)
     metadata = picam2.capture_file(os.path.join("images", f"{count}.jpg"))
     count = (count % 11) + 1
-
-picam2.close()
