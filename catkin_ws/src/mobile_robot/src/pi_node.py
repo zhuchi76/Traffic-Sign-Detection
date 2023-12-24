@@ -74,7 +74,7 @@ def main():
                 counter = 0
                 state = 1
         
-        elif state == 1: # Move forward to wall
+        elif state == 1: # Move forward to the wall
             # Move forward
             to_send.data, count_max = move_forward()
             if counter % 100 == 0:
@@ -100,7 +100,7 @@ def main():
                 state = 3
                 
 
-        elif state == 3: # Move forward 
+        elif state == 3: # Move forward (closer to the wall)
 
             # Move forward
             to_send.data, count_max = move_forward()
@@ -108,6 +108,7 @@ def main():
                 print 'move_forward'
             pub_to_arduino.publish(to_send)
 
+            # Next state
             if distance_cm < 15:
                 if traffic_sign == 'TURN LEFT':
                     state = 4
@@ -120,8 +121,6 @@ def main():
                 else:
                     print 'ERROR'
                 traffic_sign = 'WAITING FOR DETECT'
-
-
         
         elif state == 4: # Turn left
             # Turn left
