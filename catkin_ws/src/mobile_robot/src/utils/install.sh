@@ -21,6 +21,8 @@ else
     echo "pip3 is already installed."
 fi
 
+sudo apt-get install -y python3-opencv==4.6.0
+
 # Install packages from requirements.txt
 echo "Installing Python packages from requirements.txt..."
 pip3 install -r requirements.txt
