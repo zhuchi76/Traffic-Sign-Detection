@@ -3,8 +3,9 @@
 import rospy
 from std_msgs.msg import Bool, String
 import cv2
-from classification import SVM, getLabel
+from utils.classification import SVM, getLabel
 from utils.utils import *
+import os
 
 # Initialize global variables
 start_detection = False
@@ -18,35 +19,35 @@ def load_model(model_path):
 def callback_start_detection(data):
     global start_detection
     start_detection = data.data
-    
 
 def detect_signs(model, display_results):
     for i in range(1, 11):
-        image_path = f'{i}.png'
-        image = cv2.imread(image_path)
+        image = cv2.imread(os.path.join("images", f"{i}.jpg"))
         if image is not None:
-            coordinate, sign_type, text = localization(image, min_size_components, similitary_contour_with_circle, model)
+            coordinate, sign_type, text = localization(image, 300, 0.65, model)
             
             # Optionally display the results based on the ROS argument
             if display_results:
-                image = draw_picture(image, coordinate, sign_type, text)
-                cv2.imshow(f'Detection {i}', processed_image)
+                processed_image = draw_picture(image, coordinate, sign_type, text)
                 cv2.imwrite(f'detection_{i}.png', processed_image)
+                cv2.imshow(f'detection_{i}.png', processed_image)
 
             sign_counts[text] = sign_counts.get(text, 0) + 1
 
-    return max(sign_counts, key=sign_counts.get)
-    
+    # Find the maximum count
+    max_count = max(sign_counts.values(), default=0)
 
-def publish_result(sign_type):
-    pub.publish(str(sign_type))
-    rospy.loginfo(f'Published Most Common Traffic Sign: {sign_type}')
+    # Find the first key with this maximum count
+    for key, value in sign_counts.items():
+        if value == max_count:
+            return key
 
 def main():
     global model, pub, sub
 
     # Load the trained SVM model
-    model = load_model("data_svm.dat")
+    # model = load_model("data_svm.dat")
+    model = training()
 
     # Initialize ROS node
     rospy.init_node('traffic_sign_detector', anonymous=True)
@@ -63,10 +64,13 @@ def main():
     display_results = rospy.get_param("~display", False)
 
     while not rospy.is_shutdown():
-        # The main loop where you can add more functionality
         if start_detection:
             most_common_sign = detect_signs(model, display_results)
-            publish_result(most_common_sign)
+            pub.publish(most_common_sign)
+            rospy.loginfo(f'Published Most Common Traffic Sign: {most_common_sign}')
+        else:
+            pub.publish('WAITING FOR DETECT')
+
         rate.sleep()
 
 if __name__ == '__main__':
@@ -74,6 +78,3 @@ if __name__ == '__main__':
         main()
     except rospy.ROSInterruptException:
         pass
-
-
-
