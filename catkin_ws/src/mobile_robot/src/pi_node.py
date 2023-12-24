@@ -85,9 +85,7 @@ def main():
             if distance_cm < 50:
                 counter = 0
                 pub_to_detection.publish(True)
-                state = 2
-            else:
-                state = 1
+
 
         elif state == 2: # Detect traffic sign on the wall
             # Stop
@@ -99,20 +97,33 @@ def main():
             # Next state
             if traffic_sign != 'WAITING FOR DETECT':
                 counter = 0
+                state = 3
+                
+
+        elif state == 3: # Move forward 
+
+            # Move forward
+            to_send.data, count_max = move_forward()
+            if counter % 100 == 0:
+                print 'move_forward'
+            pub_to_arduino.publish(to_send)
+
+            if distance_cm < 15:
                 if traffic_sign == 'TURN LEFT':
-                    state = 3
-                elif traffic_sign == 'TURN RIGHT':
                     state = 4
-                elif traffic_sign == 'ONE WAY':
+                elif traffic_sign == 'TURN RIGHT':
                     state = 5
-                elif traffic_sign == 'STOP':
+                elif traffic_sign == 'ONE WAY':
                     state = 6
+                elif traffic_sign == 'STOP':
+                    state = 7
                 else:
                     print 'ERROR'
                 traffic_sign = 'WAITING FOR DETECT'
 
+
         
-        elif state == 3: # Turn left
+        elif state == 4: # Turn left
             # Turn left
             to_send.data, count_max = turn_left_90_degree()
             if counter % 100 == 0:
@@ -124,7 +135,7 @@ def main():
                 counter = 0
                 state = 1
 
-        elif state == 4: # Turn right
+        elif state == 5: # Turn right
             # Turn right
             to_send.data, count_max = turn_right_90_degree()
             if counter % 100 == 0:
@@ -136,7 +147,7 @@ def main():
                 counter = 0
                 state = 1
 
-        elif state == 5: # Turn back
+        elif state == 6: # Turn back
             # Turn back
             to_send.data, count_max = turn_left_180_degree()
             if counter % 100 == 0:
@@ -148,7 +159,7 @@ def main():
                 counter = 0
                 state = 1
 
-        elif state == 6: # Stop
+        elif state == 7: # Stop
             # Stop
             to_send.data, count_max = stop()
             if counter % 100 == 0:
