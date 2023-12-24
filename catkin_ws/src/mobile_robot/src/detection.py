@@ -4,7 +4,7 @@ import rospy
 from std_msgs.msg import Bool, String
 import cv2
 from classification import SVM, getLabel
-from utils import *
+from utils.utils import *
 
 # Initialize global variables
 start_detection = False

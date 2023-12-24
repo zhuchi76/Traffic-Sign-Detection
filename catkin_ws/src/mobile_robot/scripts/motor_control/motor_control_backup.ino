@@ -8,9 +8,6 @@ ros::NodeHandle nh;
 int right_speed = 100;
 int left_speed = 100;
 
-std_msgs::Int32 distance_cm;
-ros::Publisher pub("from_arduino", &distance_cm);
-
 void messageCb(const std_msgs::Int32MultiArray& received_msg) {
   right_speed = received_msg.data[0];
   left_speed = received_msg.data[1];
@@ -50,8 +47,6 @@ double SetpointB = 0;
 double Kp_B = 3, Ki_B = 0.1, Kd_B = 0;
 PID BPID(&rpmB, &val_outputB, &SetpointB, Kp_B, Ki_B, Kd_B, DIRECT);
 
-const int pingPin = 7; // Trigger Pin of Ultrasonic Sensor
-const int echoPin = 13; // Echo Pin of Ultrasonic Sensor
 
 void motor_setup() {
   pinMode(motorA1, OUTPUT);
@@ -198,28 +193,6 @@ void loop() {
   if(right_speed < 0) val_outputB = -val_outputB;
   motorA(val_outputA);
   motorB(val_outputB);
-
-  long duration, inches, cm;
-  pinMode(pingPin, OUTPUT);
-  digitalWrite(pingPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(pingPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(pingPin, LOW);
-  pinMode(echoPin, INPUT);
-  duration = pulseIn(echoPin, HIGH);
-  cm = microsecondsToCentimeters(duration);
-  // Serial.print(inches);
-  // Serial.print("in, ");
-  // Serial.print(cm);
-  // Serial.print("cm");
-  // Serial.println();
-  distance_cm.data = int(cm);
-  pub.publish(&distance_cm);
  
   delay(100);
-}
-
-long microsecondsToCentimeters(long microseconds) {
-   return microseconds / 29 / 2;
 }
