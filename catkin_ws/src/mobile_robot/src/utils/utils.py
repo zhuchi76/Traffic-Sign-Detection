@@ -231,7 +231,7 @@ def remove_other_color(img):
 
 def draw_picture(image, coordinate, sign_type, text):
     # Check if there's a detected coordinate and sign type
-    if coordinate is not None and sign_type > 0:
+    if coordinate is not None: #and sign_type > 0:
         # Draw rectangle and text on the image
         cv2.rectangle(image, coordinate[0], coordinate[1], (0, 255, 0), 1)
         font = cv2.FONT_HERSHEY_PLAIN
@@ -263,13 +263,21 @@ def localization(image, min_size_components, similitary_contour_with_circle, mod
         sign_type = getLabel(model, sign)
         sign_type = sign_type if sign_type <= 8 else 8
         text = SIGNS[sign_type]
+       
+        cv2.rectangle(original_image, coordinate[0],coordinate[1], (0, 255, 0), 1)
+        font = cv2.FONT_HERSHEY_PLAIN
+        cv2.putText(original_image,text,(coordinate[0][0], coordinate[0][1] -15), font, 1,(0,0,255),2,cv2.LINE_4)
     
-    return coordinate, sign_type, text
+    return coordinate, original_image, sign_type, text
 
 def localization_and_draw(image, min_size_components, similitary_contour_with_circle, model):
     # Assume localization function returns the needed parameters
-    coordinate, sign_type, text = localization(image, min_size_components, similitary_contour_with_circle, model)
+    coordinate, image, sign_type, text = localization(image, min_size_components, similitary_contour_with_circle, model)
     
+    print("coordinate: ", coordinate)
+    print("sign_type: ", sign_type)
+    print("text: ", text)
+
     # Call draw_picture with the obtained parameters
     image = draw_picture(image, coordinate, sign_type, text)
 
@@ -278,13 +286,15 @@ def localization_and_draw(image, min_size_components, similitary_contour_with_ci
 # Example usage
 if __name__ == '__main__':
     # Load model and other necessary setups
-    model = SVM()
-    model.load("data_svm.dat")
-
+    # model = SVM()
+    # model.load("data_svm.dat")
+    model = training()
+    
     # Example image processing
     image = cv2.imread('example.png')
     image = cv2.resize(image, (640,480))
     processed_image = localization_and_draw(image, 300, 0.65, model)
-    cv2.imshow('Processed Image', processed_image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow('Processed Image', processed_image)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+    cv2.imwrite('result.png', processed_image)

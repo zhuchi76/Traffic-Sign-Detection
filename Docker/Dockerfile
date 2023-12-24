@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y gnupg2 lsb-release
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
-RUN apt-get update && apt-get install -y \
-    g++
+# Install basic tools
+RUN apt-get update && apt-get install -y g++
 
 # Install ROS Base and rosserial packages
 RUN apt-get update && apt-get install -y \
@@ -24,26 +24,21 @@ RUN apt-get update && apt-get install -y \
 # Install other useful tools and dependencies
 RUN apt-get install -y git wget nano
 
-# # Install Python packages for OpenCV, NumPy, Matplotlib, scikit-image, and imutils
-# RUN apt-get install -y python3-pip
-# RUN pip3 install numpy matplotlib scikit-image imutils
-# RUN apt-get install -y python3-opencv
-
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
-    python3-dev
+    python3-dev \
+    python3-pip
 
-# Install Python packages for OpenCV, NumPy, Matplotlib, scikit-image, and imutils
-RUN apt-get install -y python3-pip
-RUN pip3 install numpy
-RUN pip3 install matplotlib
-# RUN pip3 install scikit-image
-RUN pip3 install imutils
+# Install specific versions of Python packages
+RUN pip3 install numpy==1.22.3
+RUN pip3 install matplotlib==3.7.2
+RUN pip3 install scikit-image==0.19.2
+RUN pip3 install imutils==0.5.4
+
+# Install OpenCV - Note that installing via apt may not provide the exact version
 RUN apt-get install -y python3-opencv
-
-
 
 # Set up the ROS environment
 RUN echo "source /opt/ros/noetic/setup.bash" >> /etc/bash.bashrc
