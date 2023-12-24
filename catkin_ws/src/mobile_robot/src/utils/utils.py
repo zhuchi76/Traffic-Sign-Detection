@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from math import sqrt
-# from skimage.feature import blob_dog, blob_log, blob_doh
+from skimage.feature import blob_dog, blob_log, blob_doh
 import imutils
 import argparse
 import os

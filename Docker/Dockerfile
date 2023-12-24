@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y \
 
 # Install specific versions of Python packages
 RUN pip3 install numpy==1.22.3
-RUN pip3 install matplotlib==3.7.2
+# RUN pip3 install matplotlib==3.7.2
 RUN pip3 install scikit-image==0.19.2
 RUN pip3 install imutils==0.5.4
 
