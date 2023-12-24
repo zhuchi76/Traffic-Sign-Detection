@@ -21,24 +21,26 @@ RUN apt-get update && apt-get install -y \
     ros-noetic-rosserial-arduino \
     ros-noetic-rosserial-python
 
-# # Install other useful tools and dependencies
-# RUN apt-get install -y git wget nano
+# Install other useful tools and dependencies
+RUN apt-get install -y git wget nano
 
-# # Install build dependencies
-# RUN apt-get update && apt-get install -y \
-#     build-essential \
-#     cmake \
-#     python3-dev \
-#     python3-pip
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    python3-dev \
+    python3-pip
 
-# # Install specific versions of Python packages
-# RUN pip3 install numpy==1.22.3
-# # RUN pip3 install matplotlib==3.7.2
+# Install OpenCV - Note that installing via apt may not provide the exact version
+RUN apt-get update && apt-get install -y --allow-unauthenticated \
+    python3-opencv
+
+# Install specific versions of Python packages
+RUN pip3 install numpy==1.22.3
+# RUN pip3 install matplotlib==3.7.2
 # RUN pip3 install scikit-image==0.19.2
-# RUN pip3 install imutils==0.5.4
+RUN pip3 install imutils==0.5.4
 
-# # Install OpenCV - Note that installing via apt may not provide the exact version
-# RUN apt-get install -y python3-opencv
 
 # Set up the ROS environment
 RUN echo "source /opt/ros/noetic/setup.bash" >> /etc/bash.bashrc
