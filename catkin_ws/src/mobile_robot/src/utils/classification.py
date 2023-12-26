@@ -7,7 +7,7 @@ from common import clock, mosaic
 
 #Parameter
 SIZE = 32
-CLASS_NUMBER = 13
+CLASS_NUMBER = 4
 
 def load_traffic_dataset():
     dataset = []

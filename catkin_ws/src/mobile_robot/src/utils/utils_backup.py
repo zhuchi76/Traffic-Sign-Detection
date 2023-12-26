@@ -10,15 +10,20 @@ import math
 
 from classification import training, getLabel
 
-SIGNS = ["ERROR",
-        "STOP",
+# SIGNS = ["ERROR",
+#         "STOP",
+#         "TURN LEFT",
+#         "TURN RIGHT",
+#         "DO NOT TURN LEFT",
+#         "DO NOT TURN RIGHT",
+#         "ONE WAY",
+#         "SPEED LIMIT",
+#         "OTHER"]
+
+SIGNS = ["STOP",
         "TURN LEFT",
         "TURN RIGHT",
-        "DO NOT TURN LEFT",
-        "DO NOT TURN RIGHT",
-        "ONE WAY",
-        "SPEED LIMIT",
-        "OTHER"]
+        "ONE WAY"]
 
 # Clean all previous file
 def clean_images():

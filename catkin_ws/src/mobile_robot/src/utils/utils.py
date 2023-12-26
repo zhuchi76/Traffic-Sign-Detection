@@ -11,15 +11,20 @@ import math
 from classification import training, getLabel
 from classification import SVM
 
-SIGNS = ["ERROR",
-        "STOP",
+# SIGNS = ["ERROR",
+#         "STOP",
+#         "TURN LEFT",
+#         "TURN RIGHT",
+#         "DO NOT TURN LEFT",
+#         "DO NOT TURN RIGHT",
+#         "ONE WAY",
+#         "SPEED LIMIT",
+#         "OTHER"]
+
+SIGNS = ["STOP",
         "TURN LEFT",
         "TURN RIGHT",
-        "DO NOT TURN LEFT",
-        "DO NOT TURN RIGHT",
-        "ONE WAY",
-        "SPEED LIMIT",
-        "OTHER"]
+        "ONE WAY"]
 
 # Clean all previous file
 def clean_images():
@@ -288,7 +293,8 @@ if __name__ == '__main__':
     # Load model and other necessary setups
     # model = SVM()
     # model.load("data_svm.dat")
-    model = training()
+    # model = training()
+    model = cv2.ml.SVM_load("data_svm.dat")
     
     # Example image processing
     image = cv2.imread('example.png')
