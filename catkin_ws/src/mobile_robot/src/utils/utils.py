@@ -79,7 +79,9 @@ def removeSmallComponents(image, threshold):
 def findContour(image):
     #find contours in the thresholded image
     cnts = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE    )
+    
     cnts = cnts[0] if imutils.is_cv2() else cnts[1]
+    print(cnts)
     return cnts
 
 def contourIsSign(perimeter, centroid, threshold):
@@ -127,6 +129,11 @@ def findLargestSign(image, contours, threshold, distance_theshold):
     coordinate = None
     sign = None
     for c in contours:
+        print("Contour shape:", c.shape)
+        print("Contour type:", type(c))
+        c = c.reshape(-1, 1, 2)
+        c = np.array(c, dtype=np.int32)
+
         M = cv2.moments(c)
         if M["m00"] == 0:
             continue
@@ -147,8 +154,6 @@ def findSigns(image, contours, threshold, distance_theshold):
     signs = []
     coordinates = []
     for c in contours:
-        c = np.squeeze(c)
-        # compute the center of the contour
         M = cv2.moments(c)
         if M["m00"] == 0:
             continue
