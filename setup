@@ -1,0 +1,105 @@
+# Update firmware using Raspberry Pi OS
+sudo apt update
+sudo apt full-upgrade
+sudo rpi-update
+sudo reboot
+# To disable cloud-init
+sudo touch /etc/cloud/cloud-init.disabled
+# To disable cloud-init's network configuration capabilities
+sudo touch /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+sudo nano /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+network: {config: disabled}
+# To disable auto update/ auto unattended-upgrade
+sudo nano /etc/apt/apt.conf.d/20auto-upgrades
+# Change values from 1 to 0
+APT::Periodic::Update-Package-Lists "0";
+APT::Periodic::Unattended-Upgrade "0";
+# To connect to WiFi
+sudo nano /etc/netplan/50-cloud-init.yaml
+-------------------------------
+network:
+    ethernets:
+        eth0:
+            dhcp4: true
+            optional: true
+    version: 2
+    wifis:
+        wlan0:
+            optional: true
+            access-points:
+                "SSID":
+                    password: "Password"
+            dhcp4: true
+-------------------------------
+sudo netplan apply
+sudo reboot
+# Initial Update/Upgrade
+sudo apt update
+sudo apt upgrade
+sudo reboot
+# Install Desktop
+sudo apt install ubuntu-desktop
+sudo reboot
+# To start Network Manager to fix Wifi Discovery
+sudo nano /etc/netplan/50-cloud-init.yaml
+-------------------------------
+network:
+    ethernets:
+        eth0:
+            dhcp4: true
+            optional: true
+    version: 2
+    renderer: NetworkManager
+    wifis:
+        wlan0:
+            optional: true
+            access-points:
+                "SSID":
+                    password: "Password"
+            dhcp4: true
+-------------------------------
+sudo netplan generate
+sudo netplan apply
+sudo service NetworkManager restart
+sudo reboot
+-------------------------------
+	Installing ROS		
+-------------------------------		
+# Install ROS "Noetic Ninjemys"
+# 1.1 Configure Ubuntu respositories
+sudo add-apt-respository universe
+sudo add-apt-respository restricted
+sudo add-apt-respository multiverse
+# 1.2 Setup sources.list
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+# 1.3 Setup keys
+sudo apt install curl
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+# 1.4 Installation
+sudo apt update
+-------------------------------
+Pick one	
+-------------------------------
+sudo apt install ros-noetic-desktop-full
+sudo apt install ros-noetic-desktop
+sudo apt install ros-noetic-ros-base
+-------------------------------
+Pick one	
+-------------------------------
+# For additional ROS package
+sudo apt install ros-noetic-PACKAGE
+# For available packages
+apt search ros-noetic
+# 1.5 Environment setup
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+# 1.6 Dependencies for building packages
+sudo apt install python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+# 1.6.1 Initialize rosdep
+sudo rosdep init
+rosdep update
+-------------------------------
+VS Code	
+-------------------------------
+# For Raspberry Pi running Ubuntu, use choose arm64.deb
+sudo apt install ./<file>.deb

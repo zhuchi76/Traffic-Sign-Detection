@@ -7,6 +7,8 @@ https://releases.ubuntu.com/focal/
 2. Raspberry Pi OS: Ubantu 20.04
 https://www.raspberrypi.com/software/
 
+Please refer to setup file
+
 ```bash
 sudo apt-get update
 ```
@@ -56,7 +58,7 @@ source install_pc.sh
 
 ## Compile the ROS system
 ```bash
-cd Traffic-Sign-Detection/catkin
+cd ~/Traffic-Sign-Detection/catkin
 ```
 
 ```bash
@@ -64,6 +66,8 @@ catkin_make
 ```
 
 ## Download Rpi camera repo
+https://index.ros.org/r/raspicam_node/github-UbiquityRobotics-raspicam_node/#noetic
+
 ```bash
-git@github.com:UbiquityRobotics/raspicam_node.git
+sudo cp ~/Traffic-Sign-Detection/30-ubiquity.list /etc/ros/rosdep/sources.list.d/30-ubiquity.list
 ```

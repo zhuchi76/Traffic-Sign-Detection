@@ -21,6 +21,7 @@ def callback_start_detection(data):
     start_detection = data.data
 
 def detect_signs(model, display_results):
+    
     for i in range(1, 11):
         image = cv2.imread(os.path.join("images", f"{i}.jpg"))
         if image is not None:
@@ -47,7 +48,8 @@ def main():
 
     # Load the trained SVM model
     # model = load_model("data_svm.dat")
-    model = training()
+    # model = training()
+    model = cv2.ml.SVM_load(os.path.join("utils", "data_svm.dat"))
 
     # Initialize ROS node
     rospy.init_node('traffic_sign_detector', anonymous=True)
@@ -55,6 +57,9 @@ def main():
     # ROS Publisher and Subscriber
     pub = rospy.Publisher('traffic_sign', String, queue_size=10)
     sub = rospy.Subscriber('start_detection', Bool, callback_start_detection)
+
+    # ROS Subscriber 
+    sub = rospy.Subscriber('image', Bool, callback_image)
 
     # Set the rate of the loop
     rate = rospy.Rate(10)  # 10hz
