@@ -66,7 +66,7 @@ def main():
             # Stop
             to_send.data, count_max = stop()
             if counter % 100 == 0:
-                print 'stop'
+                print('stop')
             pub_to_arduino.publish(to_send)
 
             # Next state
@@ -78,7 +78,7 @@ def main():
             # Move forward
             to_send.data, count_max = move_forward()
             if counter % 100 == 0:
-                print 'move_forward'
+                print('move_forward') 
             pub_to_arduino.publish(to_send)
 
             # Next state
@@ -91,7 +91,7 @@ def main():
             # Stop
             to_send.data, count_max = stop()
             if counter % 100 == 0:
-                print 'stop'
+                print('stop') 
             pub_to_arduino.publish(to_send)
             
             # Next state
@@ -105,7 +105,7 @@ def main():
             # Move forward
             to_send.data, count_max = move_forward()
             if counter % 100 == 0:
-                print 'move_forward'
+                print('move_forward') 
             pub_to_arduino.publish(to_send)
 
             # Next state
@@ -119,14 +119,14 @@ def main():
                 elif traffic_sign == 'STOP':
                     state = 7
                 else:
-                    print 'ERROR'
+                    print('ERROR') 
                 traffic_sign = 'WAITING FOR DETECT'
         
         elif state == 4: # Turn left
             # Turn left
             to_send.data, count_max = turn_left_90_degree()
             if counter % 100 == 0:
-                print 'turn_left_90_degree'
+                print('turn_left_90_degree') 
             pub_to_arduino.publish(to_send)
             
             # Next state
@@ -138,7 +138,7 @@ def main():
             # Turn right
             to_send.data, count_max = turn_right_90_degree()
             if counter % 100 == 0:
-                print 'turn_right_90_degree'
+                print('turn_right_90_degree') 
             pub_to_arduino.publish(to_send)
             
             # Next state
@@ -150,7 +150,7 @@ def main():
             # Turn back
             to_send.data, count_max = turn_left_180_degree()
             if counter % 100 == 0:
-                print 'turn_back'
+                print('turn_back') 
             pub_to_arduino.publish(to_send)
             
             # Next state
@@ -162,7 +162,7 @@ def main():
             # Stop
             to_send.data, count_max = stop()
             if counter % 100 == 0:
-                print 'stop'
+                print('stop') 
             pub_to_arduino.publish(to_send)
             break
 
