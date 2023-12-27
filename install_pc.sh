@@ -16,7 +16,7 @@ echo "Installing Python packages from requirements.txt..."
 
 # sudo apt-get update && apt-get install -y --allow-unauthenticated \
 #     python3-opencv==4.6.0
-# pip install opencv-python scikit-image imutils matplotlib
+pip install opencv-python scikit-image imutils matplotlib
 
 # ROS
 pip install empy catkin_pkg
