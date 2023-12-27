@@ -1,7 +1,7 @@
 #include <PID_v1.h>
 #include <ros.h>
 #include <std_msgs/Int32MultiArray.h>
-#include <std_msgs/Float32.h>
+#include <std_msgs/Int32.h>
 
 ros::NodeHandle nh;
 
@@ -18,8 +18,8 @@ void messageCb(const std_msgs::Int32MultiArray& received_msg) {
 
 ros::Subscriber<std_msgs::Int32MultiArray> sub("to_arduino", messageCb);
 
-std_msgs::Float32 count0r_msg;
-ros::Publisher finded_door_pub("finded_door", &count0r_msg);
+//std_msgs::Float32 count0r_msg;
+//ros::Publisher finded_door_pub("finded_door", &count0r_msg);
 
 // Define motor driver pins //L
 // Motor A
