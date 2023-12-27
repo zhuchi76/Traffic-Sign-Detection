@@ -20,8 +20,14 @@ https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu
 ## ROS & some installation and setup
 https://wiki.ros.org/Installation/Ubuntu
 
+## On rpi
 ```bash
-source install.sh
+source install_rpi.sh
+```
+
+## On PC
+```bash
+source install_pc.sh
 ```
 
 ## Setting github ssh key
