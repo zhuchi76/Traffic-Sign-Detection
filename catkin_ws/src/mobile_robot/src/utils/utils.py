@@ -80,8 +80,9 @@ def findContour(image):
     #find contours in the thresholded image
     cnts = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE    )
     
-    cnts = cnts[0] if imutils.is_cv2() else cnts[1]
-    print(cnts)
+    # cnts = cnts[0] if imutils.is_cv2() else cnts[1]
+    cnts = cnts[0]
+    # print(cnts)
     return cnts
 
 def contourIsSign(perimeter, centroid, threshold):

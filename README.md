@@ -13,6 +13,9 @@ sudo apt-get update
 ```bash
 sudo apt-get upgrade
 ```
+```bash
+sudo apt-get install git
+```
 
 ## Swap RAM
 https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-20-04
@@ -20,19 +23,13 @@ https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu
 ## ROS & some installation and setup
 https://wiki.ros.org/Installation/Ubuntu
 
-## On rpi
-```bash
-source install_rpi.sh
-```
-
-## On PC
-```bash
-source install_pc.sh
-```
 
 ## Setting github ssh key
 ```bash
 ssh-keygen -t rsa -b 4096 -C <your_email>
+```
+```bash
+ssh-keygen -t rsa -b 4096 -C tzuchichen.sc08@nycu.edu.tw
 ```
 
 ```bash
@@ -45,6 +42,16 @@ Set the key on github webpage
 ## Clone the repo
 ```bash
 git clone git@github.com:zhuchi76/Traffic-Sign-Detection.git
+```
+
+## On rpi
+```bash
+source install_rpi.sh
+```
+
+## On PC
+```bash
+source install_pc.sh
 ```
 
 ## Compile the ROS system
