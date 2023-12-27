@@ -18,8 +18,6 @@ void messageCb(const std_msgs::Int32MultiArray& received_msg) {
 
 ros::Subscriber<std_msgs::Int32MultiArray> sub("to_arduino", messageCb);
 
-//std_msgs::Float32 count0r_msg;
-//ros::Publisher finded_door_pub("finded_door", &count0r_msg);
 
 // Define motor driver pins //L
 // Motor A
@@ -147,22 +145,9 @@ void setup() {
   motorB(right_speed);
 }
 
-float count0ratio(){
-  int count0 = 0;
-  int count1 = 0;
-  for(int i = 0; i < 100; i++){
-    if(digitalRead(13) == 0) count0++;
-    else count1++;
-  }
-  return (float)(count0)/(float)(count0+count1);
-}
-
-
 
 void loop() {
   nh.spinOnce();
-
-  count0r_msg.data = count0ratio();
 
   if(val_outputA * left_speed < 0 || val_outputB * right_speed < 0){
     motorA(left_speed/abs(left_speed));
