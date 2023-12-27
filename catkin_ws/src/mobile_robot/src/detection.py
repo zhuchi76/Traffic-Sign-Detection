@@ -53,7 +53,7 @@ def main():
     sub = rospy.Subscriber('start_detection', Bool, callback_start_detection)
 
     # ROS Subscriber for RPi Camera
-    sub_from_rpi_cam = rospy.Subscriber('image', Image, callback_image)
+    sub_from_rpi_cam = rospy.Subscriber('/raspicam_node/image/compressed', Image, callback_image)
 
     # Set the rate of the loop
     rate = rospy.Rate(10)  # 10hz
