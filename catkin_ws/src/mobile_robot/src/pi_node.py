@@ -5,8 +5,8 @@ from std_msgs.msg import Int32, Int32MultiArray, Bool, String
 
 # left_speed, right_speed, count_max
 def move_forward():
-    return [217, 200], 300
-    # return [138, 125], 300
+    # return [217, 200], 300
+    return [138, 125], 300
 
 def move_backward():
     return [-50, -50], 100
