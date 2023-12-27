@@ -1,0 +1,7 @@
+<launch>
+    <!-- Traffic Sign Detector Node -->
+    <node name="traffic_sign_detector" pkg="mobile_robot" type="detection.py" output="screen">
+        <param name="display" value="true" />  <!-- Set to 'false' if you don't want to display detection results -->
+    </node>
+    
+</launch>
