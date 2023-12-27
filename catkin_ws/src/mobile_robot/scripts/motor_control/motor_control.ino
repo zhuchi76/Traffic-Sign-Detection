@@ -138,10 +138,10 @@ void setup() {
   motor_setup();
   APID.SetMode(AUTOMATIC);
   APID.SetSampleTime(100);
-  APID.SetOutputLimits(0, 220);
+  APID.SetOutputLimits(0, 200);
   BPID.SetMode(AUTOMATIC);
   BPID.SetSampleTime(100);
-  BPID.SetOutputLimits(0, 220);
+  BPID.SetOutputLimits(0, 200);
   EncoderInit();
   motorA(left_speed);
   motorB(right_speed);
