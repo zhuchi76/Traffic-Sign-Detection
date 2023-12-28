@@ -1,5 +1,5 @@
 <launch>
-    <arg name="display" default=False />
+    <arg name="display" default=false />
     <!-- Traffic Sign Detector Node -->
     <node name="traffic_sign_detector" pkg="mobile_robot" type="detection.py" output="screen">
         <param name="display" value="$(arg display)" />  <!-- Set to 'false' if you don't want to display detection results -->
