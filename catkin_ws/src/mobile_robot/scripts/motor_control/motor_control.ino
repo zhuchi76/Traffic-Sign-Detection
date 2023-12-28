@@ -2,6 +2,7 @@
 #include <ros.h>
 #include <std_msgs/Int32MultiArray.h>
 #include <std_msgs/Int32.h>
+#include <HCSR04.h>
 
 ros::NodeHandle nh;
 
@@ -50,6 +51,11 @@ PID BPID(&rpmB, &val_outputB, &SetpointB, Kp_B, Ki_B, Kd_B, DIRECT);
 
 const int pingPin = 7; // Trigger Pin of Ultrasonic Sensor
 const int echoPin = 13; // Echo Pin of Ultrasonic Sensor
+
+// Initialize sensor that uses digital pins 13 and 12.
+//const byte triggerPin = 7;
+//const byte echoPin = 13;
+//UltraSonicDistanceSensor distanceSensor(triggerPin, echoPin);
 
 void motor_setup() {
   pinMode(motorA1, OUTPUT);
@@ -184,7 +190,7 @@ void loop() {
   motorA(val_outputA);
   motorB(val_outputB);
 
-  long duration, inches, cm;
+  long duration, cm;
   pinMode(pingPin, OUTPUT);
   digitalWrite(pingPin, LOW);
   delayMicroseconds(2);
@@ -193,18 +199,20 @@ void loop() {
   digitalWrite(pingPin, LOW);
   pinMode(echoPin, INPUT);
   duration = pulseIn(echoPin, HIGH);
-  cm = microsecondsToCentimeters(duration);
+  cm = (float)((duration / 2) / 29.41);
+  // cm = microsecondsToCentimeters(duration);
   // Serial.print(inches);
   // Serial.print("in, ");
   // Serial.print(cm);
   // Serial.print("cm");
   // Serial.println();
+  // float cm = distanceSensor.measureDistanceCm();
   distance_cm.data = int(cm);
   pub.publish(&distance_cm);
  
   delay(100);
 }
 
-long microsecondsToCentimeters(long microseconds) {
-   return microseconds / 29 / 2;
-}
+// long microsecondsToCentimeters(long microseconds) {
+//    return microseconds / 29 / 2;
+// }
