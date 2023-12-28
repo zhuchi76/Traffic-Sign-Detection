@@ -45,6 +45,9 @@ Set the key on github webpage
 ```bash
 git clone git@github.com:zhuchi76/Traffic-Sign-Detection.git
 ```
+```bash
+git submodule update --init
+```
 
 ## On rpi
 ```bash
@@ -55,6 +58,10 @@ source install_rpi.sh
 ```bash
 source install_pc.sh
 ```
+
+## Arduino
+https://blog.csdn.net/weixin_51331359/article/details/122289768
+
 
 ## Compile the ROS system
 ```bash
