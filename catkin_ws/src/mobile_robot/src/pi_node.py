@@ -87,10 +87,11 @@ def main():
             if distance_cm < 50:
                 counter = 0
                 state = 2
-                pub_to_detection.publish(True)
+                
 
 
         elif state == 2: # Detect traffic sign on the wall
+            pub_to_detection.publish(True)
             # Stop
             to_send.data, count_max = stop()
             if counter % 100 == 0:
