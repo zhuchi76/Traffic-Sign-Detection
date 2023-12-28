@@ -37,6 +37,8 @@ def callback_detection(data):
 
 
 def main():
+    global distance_cm
+    global traffic_sign
     rospy.init_node('pi_node', anonymous=True)
     
     # Arduino
@@ -48,7 +50,7 @@ def main():
     rospy.Subscriber('traffic_sign', String, callback_detection)
     
     
-    rate = rospy.Rate(10)  # 10hz
+    rate = rospy.Rate(100)  # 10hz
     rospy.sleep(5)
 
     to_send = Int32MultiArray()
@@ -84,6 +86,7 @@ def main():
             # Next state
             if distance_cm < 50:
                 counter = 0
+                state = 2
                 pub_to_detection.publish(True)
 
 

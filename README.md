@@ -79,8 +79,6 @@ https://index.ros.org/r/raspicam_node/github-UbiquityRobotics-raspicam_node/#noe
 sudo cp ~/Traffic-Sign-Detection/30-ubiquity.list /etc/ros/rosdep/sources.list.d/30-ubiquity.list
 ```
 ## Run (on rpi)
-
-### Terminal 1
 ```bash
 source devel/setup.bash
 ```
@@ -89,18 +87,8 @@ source devel/setup.bash
 roslaunch mobile_robot arduino_comm.launch
 ```
 
-### Terminal 2
-```bash
-source devel/setup.bash
-```
-
 ```bash
 roslaunch raspicam_node camerav2_1280x960.launch
-```
-
-### Terminal 3
-```bash
-rqt_image_view
 ```
 
 ## Run (on PC)
