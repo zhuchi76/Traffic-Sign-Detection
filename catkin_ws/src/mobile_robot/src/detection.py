@@ -5,9 +5,10 @@ from std_msgs.msg import Bool, String
 from sensor_msgs.msg import Image  # Import the Image message type
 from cv_bridge import CvBridge, CvBridgeError  # Import CvBridge
 import cv2
-from utils.classification import SVM, getLabel
-from utils.utils import *
+from classification import SVM, getLabel
+from utils import *
 import os
+import rospkg
 
 # Initialize global variables
 start_detection = False
@@ -43,7 +44,9 @@ def main():
     global model, pub, sub
 
     # Load the trained SVM model
-    model = cv2.ml.SVM_load(os.path.join("utils", "data_svm.dat"))
+    rospack = rospkg.RosPack()
+
+    model = cv2.ml.SVM_load(rospack.get_path('mobile_robot')+"/src/data_svm.dat")
 
     # Initialize ROS node
     rospy.init_node('traffic_sign_detector', anonymous=True)
