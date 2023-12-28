@@ -78,3 +78,24 @@ https://index.ros.org/r/raspicam_node/github-UbiquityRobotics-raspicam_node/#noe
 ```bash
 sudo cp ~/Traffic-Sign-Detection/30-ubiquity.list /etc/ros/rosdep/sources.list.d/30-ubiquity.list
 ```
+## Run (on rpi)
+```bash
+source devel/setup.bash
+```
+
+```bash
+roslaunch mobile_robot arduino_comm.launch
+```
+
+```bash
+roslaunch raspicam_node camerav2_1280x960.launch
+```
+
+## Run (on PC)
+```bash
+source devel/setup.bash
+```
+
+```bash
+roslaunch mobile_robot traffic_sign_detector.launch
+```
