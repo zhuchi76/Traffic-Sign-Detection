@@ -132,7 +132,7 @@ void setup() {
   nh.getHardware()->setBaud(57600);
   nh.initNode();
   nh.subscribe(sub);
-  nh.advertise(finded_door_pub);
+  nh.advertise(pub);
   motor_setup();
   APID.SetMode(AUTOMATIC);
   APID.SetSampleTime(100);
