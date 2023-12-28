@@ -33,7 +33,7 @@ def detect_signs(model, display_results, image):
 
     coordinate, sign_type, text = localization(image, 300, 0.65, model)
     # Optionally display the results based on the ROS argument
-    if display_results:
+    if False:
         processed_image = draw_picture(image, coordinate, sign_type, text)
         cv2.imwrite('detection.png', processed_image)
         cv2.imshow('Detection', processed_image)
@@ -63,8 +63,6 @@ def main():
     rate = rospy.Rate(10)  # 10hz
 
     rospy.sleep(1)
-
-    display_results = rospy.get_param("~display", False)
 
     while not rospy.is_shutdown():
         if start_detection and current_image is not None:
