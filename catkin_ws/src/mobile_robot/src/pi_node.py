@@ -62,7 +62,8 @@ def main():
 
     while not rospy.is_shutdown():
 
-        pub_to_detection.publish(False)
+        if state != 2:
+            pub_to_detection.publish(False)
         
         if state == 0: # Stop for training
             # Stop
