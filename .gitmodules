@@ -1,6 +1,0 @@
-[submodule "catkin_ws/src/raspicam_node"]
-	path = catkin_ws/src/raspicam_node
-	url = https://github.com/UbiquityRobotics/raspicam_node.git
-[submodule "catkin_ws/src/rosserial"]
-	path = catkin_ws/src/rosserial
-	url = https://github.com/ros-drivers/rosserial.git

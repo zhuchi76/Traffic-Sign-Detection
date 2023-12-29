@@ -56,14 +56,20 @@ def main():
     to_send = Int32MultiArray()
     to_send.data = [0, 0]
 
+    start_detection_msg = Bool()
+    start_detection_msg.data = False
+
     counter = 0
     state = 1
+
+    traffic_sign_temp = 'WAITING FOR DETECT'
     
 
     while not rospy.is_shutdown():
 
         if state != 2:
-            pub_to_detection.publish(False)
+            start_detection_msg.data = False
+            pub_to_detection.publish(start_detection_msg)
         
         if state == 0: # Stop for training
             # Stop
@@ -85,14 +91,15 @@ def main():
             pub_to_arduino.publish(to_send)
 
             # Next state
-            if distance_cm < 50:
+            if distance_cm < 100:
                 counter = 0
                 state = 2
                 
 
 
         elif state == 2: # Detect traffic sign on the wall
-            pub_to_detection.publish(True)
+            start_detection_msg.data = True
+            pub_to_detection.publish(start_detection_msg)
             # Stop
             to_send.data, count_max = stop()
             if counter % 100 == 0:
@@ -102,32 +109,19 @@ def main():
             # Next state
             if traffic_sign != 'WAITING FOR DETECT':
                 counter = 0
-                state = 3
-                
-
-        elif state == 3: # Move forward (closer to the wall)
-
-            # Move forward
-            to_send.data, count_max = move_forward()
-            if counter % 100 == 0:
-                print('move_forward') 
-            pub_to_arduino.publish(to_send)
-
-            # Next state
-            if distance_cm < 15:
                 if traffic_sign == 'TURN LEFT':
-                    state = 4
+                    state = 3
                 elif traffic_sign == 'TURN RIGHT':
-                    state = 5
+                    state = 4
                 elif traffic_sign == 'ONE WAY':
-                    state = 6
+                    state = 5
                 elif traffic_sign == 'STOP':
-                    state = 7
+                    state = 6
                 else:
-                    print('ERROR') 
-                traffic_sign = 'WAITING FOR DETECT'
+                    state = 2
+                
         
-        elif state == 4: # Turn left
+        elif state == 3: # Turn left
             # Turn left
             to_send.data, count_max = turn_left_90_degree()
             if counter % 100 == 0:
@@ -139,7 +133,7 @@ def main():
                 counter = 0
                 state = 1
 
-        elif state == 5: # Turn right
+        elif state == 4: # Turn right
             # Turn right
             to_send.data, count_max = turn_right_90_degree()
             if counter % 100 == 0:
@@ -151,11 +145,12 @@ def main():
                 counter = 0
                 state = 1
 
-        elif state == 6: # Turn back
-            # Turn back
-            to_send.data, count_max = turn_left_180_degree()
+        elif state == 5: # move_backward
+            # move_backward
+            #to_send.data, count_max = turn_left_180_degree()
+            to_send.data, count_max = move_backward()
             if counter % 100 == 0:
-                print('turn_back') 
+                print('move_backward') 
             pub_to_arduino.publish(to_send)
             
             # Next state
@@ -163,13 +158,18 @@ def main():
                 counter = 0
                 state = 1
 
-        elif state == 7: # Stop
+        elif state == 6: # Stop
             # Stop
             to_send.data, count_max = stop()
             if counter % 100 == 0:
                 print('stop') 
             pub_to_arduino.publish(to_send)
-            break
+
+            # Next state
+            if counter > count_max:
+                counter = 0
+                state = 1
+            # break
 
         counter += 1
         rate.sleep()

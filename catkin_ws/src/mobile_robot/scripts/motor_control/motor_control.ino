@@ -1,16 +1,16 @@
 #include <PID_v1.h>
 #include <ros.h>
 #include <std_msgs/Int32MultiArray.h>
-#include <std_msgs/Int32.h>
-#include <HCSR04.h>
+
+//#include <HCSR04.h>
 
 ros::NodeHandle nh;
 
 int right_speed = 100;
 int left_speed = 100;
 
-std_msgs::Int32 distance_cm;
-ros::Publisher pub("from_arduino", &distance_cm);
+//std_msgs::Int32 distance_cm;
+//ros::Publisher pub("from_arduino", &distance_cm);
 
 void messageCb(const std_msgs::Int32MultiArray& received_msg) {
   right_speed = received_msg.data[0];
@@ -49,8 +49,8 @@ double SetpointB = 0;
 double Kp_B = 3, Ki_B = 0.1, Kd_B = 0;
 PID BPID(&rpmB, &val_outputB, &SetpointB, Kp_B, Ki_B, Kd_B, DIRECT);
 
-const int pingPin = 7; // Trigger Pin of Ultrasonic Sensor
-const int echoPin = 13; // Echo Pin of Ultrasonic Sensor
+// const int pingPin = 7; // Trigger Pin of Ultrasonic Sensor
+// const int echoPin = 13; // Echo Pin of Ultrasonic Sensor
 
 // Initialize sensor that uses digital pins 13 and 12.
 //const byte triggerPin = 7;
@@ -138,7 +138,7 @@ void setup() {
   nh.getHardware()->setBaud(57600);
   nh.initNode();
   nh.subscribe(sub);
-  nh.advertise(pub);
+  //nh.advertise(pub);
   motor_setup();
   APID.SetMode(AUTOMATIC);
   APID.SetSampleTime(100);
@@ -190,16 +190,16 @@ void loop() {
   motorA(val_outputA);
   motorB(val_outputB);
 
-  long duration, cm;
-  pinMode(pingPin, OUTPUT);
-  digitalWrite(pingPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(pingPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(pingPin, LOW);
-  pinMode(echoPin, INPUT);
-  duration = pulseIn(echoPin, HIGH);
-  cm = (float)((duration / 2) / 29.41);
+  // long duration, cm;
+  // pinMode(pingPin, OUTPUT);
+  // digitalWrite(pingPin, LOW);
+  // delayMicroseconds(2);
+  // digitalWrite(pingPin, HIGH);
+  // delayMicroseconds(10);
+  // digitalWrite(pingPin, LOW);
+  // pinMode(echoPin, INPUT);
+  // duration = pulseIn(echoPin, HIGH);
+  // cm = (float)((duration / 2) / 29.41);
   // cm = microsecondsToCentimeters(duration);
   // Serial.print(inches);
   // Serial.print("in, ");
@@ -207,8 +207,8 @@ void loop() {
   // Serial.print("cm");
   // Serial.println();
   // float cm = distanceSensor.measureDistanceCm();
-  distance_cm.data = int(cm);
-  pub.publish(&distance_cm);
+  // distance_cm.data = int(cm);
+  // pub.publish(&distance_cm);
  
   delay(100);
 }
