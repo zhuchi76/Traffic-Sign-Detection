@@ -130,10 +130,6 @@ def findLargestSign(image, contours, threshold, distance_theshold):
     coordinate = None
     sign = None
     for c in contours:
-        print("Contour shape:", c.shape)
-        print("Contour type:", type(c))
-        c = c.reshape(-1, 1, 2)
-        c = np.array(c, dtype=np.int32)
 
         M = cv2.moments(c)
         if M["m00"] == 0:
@@ -299,8 +295,8 @@ if __name__ == '__main__':
     # Load model and other necessary setups
     # model = SVM()
     # model.load("data_svm.dat")
-    # model = training()
-    model = cv2.ml.SVM_load("data_svm.dat")
+    model = training()
+    # model = cv2.ml.SVM_load("data_svm.dat")
     
     # Example image processing
     image = cv2.imread('example.png')

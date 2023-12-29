@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 from os import listdir
 # local modules
 from common import clock, mosaic
+import rospkg
 
 #Parameter
 SIZE = 32
@@ -12,11 +13,12 @@ CLASS_NUMBER = 4
 def load_traffic_dataset():
     dataset = []
     labels = []
+    rospack = rospkg.RosPack()
     for sign_type in range(CLASS_NUMBER):
-        sign_list = listdir("./dataset/{}".format(sign_type))
+        sign_list = listdir(rospack.get_path('mobile_robot')+"/src/dataset/{}".format(sign_type))
         for sign_file in sign_list:
             if '.png' in sign_file:
-                path = "./dataset/{}/{}".format(sign_type,sign_file)
+                path = rospack.get_path('mobile_robot')+"/src/dataset/{}/{}".format(sign_type,sign_file)
                 print(path)
                 img = cv2.imread(path,0)
                 img = cv2.resize(img, (SIZE, SIZE))
@@ -42,7 +44,7 @@ class StatModel(object):
         self.model.save(fn)
 
 class SVM(StatModel):
-    def __init__(self, C = 12.5, gamma = 0.50625):
+    def __init__(self, C = 12.5, gamma = 0.50625): #12.5 0.50625
         self.model = cv2.ml.SVM_create()
         self.model.setGamma(gamma)
         self.model.setC(C)
