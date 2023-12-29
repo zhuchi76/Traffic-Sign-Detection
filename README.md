@@ -80,30 +80,12 @@ sudo cp ~/Traffic-Sign-Detection/30-ubiquity.list /etc/ros/rosdep/sources.list.d
 ```
 ## Run (on rpi)
 ### Terminal 1
-<<<<<<< Updated upstream
-### Terminal 1
-```bash
-source ~/Traffic-Sign-Detection/catkin_ws/~/Traffic-Sign-Detection/catkin_ws/devel/setup.bash
-=======
 ```bash
 source ~/Traffic-Sign-Detection/catkin_ws/devel/setup.bash
->>>>>>> Stashed changes
 ```
 
 ```bash
 roslaunch mobile_robot arduino_comm.launch
-```
-
-### Terminal 2
-<<<<<<< Updated upstream
-=======
-```bash
-source ~/Traffic-Sign-Detection/catkin_ws/devel/setup.bash
-```
-
->>>>>>> Stashed changes
-```bash
-source ~/Traffic-Sign-Detection/catkin_ws/devel/setup.bash
 ```
 
 ### Terminal 2
@@ -113,6 +95,15 @@ source ~/Traffic-Sign-Detection/catkin_ws/devel/setup.bash
 
 ```bash
 roslaunch raspicam_node camerav2_1280x960.launch
+```
+
+## Run (on pc)
+```bash
+source ~/Traffic-Sign-Detection/catkin_ws/devel/setup.bash
+```
+
+```bash
+roslaunch mobile_robot traffic_sign_detector.launch
 ```
 
 
