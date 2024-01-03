@@ -1,4 +1,5 @@
 # Traffic Sign Detection
+DEMO VIDEO LINK: https://youtu.be/kVttsuUXtOw
 
 ## Front installation
 1. PC OS: Ubantu 20.04
@@ -79,6 +80,9 @@ https://index.ros.org/r/raspicam_node/github-UbiquityRobotics-raspicam_node/#noe
 sudo cp ~/Traffic-Sign-Detection/30-ubiquity.list /etc/ros/rosdep/sources.list.d/30-ubiquity.list
 ```
 ## Run (on rpi)
+Modify environment_laptop.sh and environment_rpi.sh.
+Add these files content to ~/.bashrc in PC and rpi.
+
 ### Terminal 1
 ```bash
 source ~/Traffic-Sign-Detection/catkin_ws/devel/setup.bash
